@@ -1,0 +1,20 @@
+{
+    "studant":[
+        {"first":"eran",
+        "last":"ovrutzki",
+        "id": 0
+        },
+        {"first":"niv",
+        "last":"rahamim",
+        "id": 1
+        },
+        {"first":"asaf",
+        "last":"catz",
+        "id": 2
+        },
+        {"first":"ido",
+        "last":"fgsd",
+        "id": 3
+        }
+    ]
+}

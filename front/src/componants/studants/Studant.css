@@ -1,0 +1,45 @@
+#page {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+}
+#container {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+button {
+  all: unset;
+  cursor: pointer;
+  width: fit-content;
+  color: brown;
+  background-color: coral;
+  border: 2px brown solid;
+}
+button:hover {
+  background-color: brown;
+  color: white;
+}
+table,
+th,
+td {
+  border: 1px black solid;
+}
+
+.update-btn {
+  color: rgb(16, 16, 51);
+  background-color: darkblue;
+  border: 2px rgb(16, 16, 51) solid;
+}
+.update-btn:hover{
+    color: white;
+    background-color:rgb(16, 16, 51);
+}
