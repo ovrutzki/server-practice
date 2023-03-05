@@ -14,11 +14,16 @@ export const deleteStudant = (studantID: number) => {
   // data.studant.filter((studant: any) => studant.id !== studantID);
   return data.studant;
 };
-export const updateStudant = (first:any, last:any, id:number) =>{
+export const updateStudant = (first:any, last:any, id:number, email:string, password:string) =>{
   const studant = data.studant.find((studant:any) => studant.id === id);
   studant.first = first;
   studant.last = last;
+  studant.email = email;
+  studant.password = password;
   return data.studant;
-
-
 }
+
+export const register = (studant: any) => {
+  data.studant.push(studant);
+  return data.studant;
+};

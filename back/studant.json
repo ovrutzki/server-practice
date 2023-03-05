@@ -2,19 +2,27 @@
     "studant":[
         {"first":"eran",
         "last":"ovrutzki",
-        "id": 0
+        "id": 0,
+        "email":"eran@gmail.com",
+        "password":""
         },
         {"first":"niv",
         "last":"rahamim",
-        "id": 1
+        "id": 1,
+        "email":"niv@gmail.com",
+        "password":""
         },
         {"first":"asaf",
         "last":"catz",
-        "id": 2
+        "id": 2,
+        "email":"asaf@gmail.com",
+        "password":""
         },
         {"first":"ido",
         "last":"fgsd",
-        "id": 3
+        "id": 3,
+        "email":"ido@gmail.com",
+        "password":""
         }
     ]
 }

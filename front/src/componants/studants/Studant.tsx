@@ -7,8 +7,10 @@ const Studant = () => {
   const [studansts, setStudants] = useState<any>([]);
   const [first, setFirst] = useState<string>("");
   const [last, setLast] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [idNumber, setIdNumber] = useState<number>()
-
+  
   useEffect(() => {
     fetch("http://localhost:8000/api/studant")
       .then((response) => response.json())
@@ -18,14 +20,16 @@ const Studant = () => {
       .catch((err) => {
         console.log(err.message);
       });
-  }, [flag]);
+  }, [studansts]);
 
-  const addStudant = async (first: any, last: any) => {
+  const addStudant = async (first: any, last: any, email:any, password:any) => {
     await fetch("http://localhost:8000/api/studant", {
       method: "POST",
       body: JSON.stringify({
         first: first,
         last: last,
+        email:email,
+        password:password,
         id: new Date().getTime(),
       }),
       headers: {
@@ -42,21 +46,40 @@ const Studant = () => {
         console.log(err.message);
       });
   };
+  const registerStudant = async (first:any, last:any, email:any, password:any) =>{
+    console.log(first,last,email,password)
+    await fetch("http://localhost:8000/api/studant/register",{
+      method: "POST",
+      body: JSON.stringify({
+        first: first,
+        last: last,
+        email: email,
+        password: password,
+        id: new Date().getTime()
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      setStudants((studansts: any) => [data, ...studansts]);
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+  }
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    addStudant(first, last);
-    console.log(studansts);
+    addStudant(first, last,email, password);
+    setFlag(!flag);
+  };
+  const handleRegister = (e: any) => {
+    e.preventDefault();
+    registerStudant(first, last, email, password);
     setFlag(!flag);
   };
 
-  //   const deleteStudant = async (id:number) => {
-  //     try {
-  //       const res = await axios.delete(`http://localhost:8000/api/studant/${id}`)
-  //       console.log('Item successfully deleted.')
-  //     } catch (error) {
-  //       alert(error + '  =test')
-  //     }
-  //   }
 
   const deleteStudant = async (studantId: number) => {
     await fetch("http://localhost:8000/api/studant", {
@@ -73,10 +96,12 @@ const Studant = () => {
     let item = studansts.find((studant:any) => studant.id === id);
     setFirst(item.first)
     setLast(item.last)
+    setEmail(item.email)
+    setPassword(item.password)
     setIdNumber(item.id)
   }
   const updateStudant = async () =>{
-    let item = {first, last, idNumber};
+    let item = {first, last, idNumber, email, password};
     console.warn("item ",item)
     await fetch(`http://localhost:8000/api/studant`, {
       method: "PUT",
@@ -84,7 +109,7 @@ const Studant = () => {
         'Accept':'application/json',
         'Content-Type':'application/json'
       },
-      body: JSON.stringify({first: first, last: last, id: idNumber})
+      body: JSON.stringify({first: first, last: last, id: idNumber, email: email, password: password})
     }).then((result)=> {
       result.json()
       .then((response) => {
@@ -116,7 +141,26 @@ const Studant = () => {
                 type="text"
               />
             </label>
+            <label htmlFor="">
+              email
+              <input
+              value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                name="email"
+                type="text"
+              />
+            </label>
+            <label htmlFor="">
+              password
+              <input
+              value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                name="password"
+                type="password"
+              />
+            </label>
             <button onClick={handleSubmit} type="button">add studant</button>
+            <button onClick={handleRegister} type="button">register</button>
             <button className="update-btn" onClick={updateStudant} type="button">update data</button>
           </form>
         </div>
@@ -124,6 +168,8 @@ const Studant = () => {
           <tr>
             <th>first name</th>
             <th>last name</th>
+            <th>email</th>
+            <th>password</th>
             <th>id</th>
             <th>delete</th>
           </tr>
@@ -133,6 +179,8 @@ const Studant = () => {
                 <tr key={index}>
                   {<th>{stu.first}</th>}
                   {<th>{stu.last}</th>}
+                  {<th>{stu.email}</th>}
+                  {<th>{stu.password}</th>}
                   {<th>{stu["id"]}</th>}
                   <th>
                     <button onClick={() => deleteStudant(stu.id)}>
