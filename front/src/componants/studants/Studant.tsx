@@ -30,7 +30,6 @@ const Studant = () => {
         last: last,
         email:email,
         password:password,
-        id: new Date().getTime(),
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -84,7 +83,7 @@ const Studant = () => {
   const deleteStudant = async (studantId: number) => {
     await fetch("http://localhost:8000/api/studant", {
       method: "DELETE",
-      body: JSON.stringify({id: studantId}),
+      body: JSON.stringify({_id: studantId}),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
@@ -93,12 +92,12 @@ const Studant = () => {
   };
 
   const selectStudant = (id:number) =>{
-    let item = studansts.find((studant:any) => studant.id === id);
+    let item = studansts.find((studant:any) => studant._id === id);
     setFirst(item.first)
     setLast(item.last)
     setEmail(item.email)
     setPassword(item.password)
-    setIdNumber(item.id)
+    setIdNumber(item._id)
   }
   const updateStudant = async () =>{
     let item = {first, last, idNumber, email, password};
@@ -109,7 +108,7 @@ const Studant = () => {
         'Accept':'application/json',
         'Content-Type':'application/json'
       },
-      body: JSON.stringify({first: first, last: last, id: idNumber, email: email, password: password})
+      body: JSON.stringify({first: first, last: last, _id: idNumber, email: email, password: password})
     }).then((result)=> {
       result.json()
       .then((response) => {
@@ -181,14 +180,14 @@ const Studant = () => {
                   {<th>{stu.last}</th>}
                   {<th>{stu.email}</th>}
                   {<th>{stu.password}</th>}
-                  {<th>{stu["id"]}</th>}
+                  {<th>{stu._id}</th>}
                   <th>
-                    <button onClick={() => deleteStudant(stu.id)}>
+                    <button onClick={() => deleteStudant(stu._id)}>
                       delete
                     </button>
                   </th>
                   <th>
-                    <button className="update-btn" onClick={() => selectStudant(stu.id)} >
+                    <button className="update-btn" onClick={() => selectStudant(stu._id)} >
                       update
                     </button>
                   </th>

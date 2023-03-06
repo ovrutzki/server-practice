@@ -1,29 +1,45 @@
-var data = require("../../../studant.json");
+import { IStudant, StudantModal } from "../../model/studants.model";
 
-export const getStudant = () => {
-  return data.studant;
+export const getStudant = async () => {
+  try {
+    const studants = await StudantModal.find();
+    return studants;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
+export const createStudant = async (studant: IStudant) => {
+  const _studant = new StudantModal(studant);
+  try {
+    await _studant.save();
+    return _studant;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
+export const deleteStudant = async (studantID: string) => {
+  try {
+    await StudantModal.findByIdAndDelete(studantID);
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
+export const updateStudant = async (id:string, studant:IStudant) => {
+  try {
+   const _studant =  await StudantModal.findByIdAndUpdate(id, studant);
+   if(_studant){
+    return (_studant)
+   }
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
 };
 
-export const createStudant = (studant: any) => {
-  data.studant.push(studant);
-  return data.studant;
-};
-export const deleteStudant = (studantID: number) => {
-     const studantIndex = data.studant.findIndex((stu:any)=>stu.id === studantID)
-      data.studant.splice(studantIndex, 1)
-  // data.studant.filter((studant: any) => studant.id !== studantID);
-  return data.studant;
-};
-export const updateStudant = (first:any, last:any, id:number, email:string, password:string) =>{
-  const studant = data.studant.find((studant:any) => studant.id === id);
-  studant.first = first;
-  studant.last = last;
-  studant.email = email;
-  studant.password = password;
-  return data.studant;
-}
-
-export const register = (studant: any) => {
-  data.studant.push(studant);
-  return data.studant;
-};
+// export const register = (studant: any) => {
+//   data.studant.push(studant);
+//   return data.studant;
+// };
