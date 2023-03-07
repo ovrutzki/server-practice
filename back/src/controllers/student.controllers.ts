@@ -26,7 +26,7 @@ export const addStudants = async (req: Request, res: Response) => {
       .json({
         status: 200,
         data: studants,
-        message: "Succesfully Create Studant",
+        message: "Successfully Create Studant",
       });
   } catch (err: any) {
     console.log(err);
@@ -42,7 +42,7 @@ export const removeStudants = async (req: Request, res: Response) => {
       .json({
         status: 200,
         data: studants,
-        message: "Succesfully Remove Studant",
+        message: "Successfully Remove Studant",
       });
   } catch (err: any) {
     console.log(err);
@@ -57,7 +57,7 @@ export const changeStudant = async (req: Request, res: Response) => {
       .json({
         status: 200,
         data: studants,
-        message: "Succesfully Remove Studant",
+        message: "Successfully Update Studant",
       });
   } catch (err: any) {
     console.log(err);
